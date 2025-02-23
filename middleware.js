@@ -1,6 +1,7 @@
+require("dotenv").config()
 const send_otp = async (transport, mail, user_text) => {
     let mailoptions = {
-      from: "manivardhan.10000@gmail.com",
+      from: process.env.MY_EMAIL,
       to: mail,
       subject: "Your OTP Code", 
       text: user_text,
@@ -9,7 +10,7 @@ const send_otp = async (transport, mail, user_text) => {
     try {
       let info = await transport.sendMail(mailoptions); 
       console.log("Email sent successfully:", info);
-      return info; 
+      return info.message; 
     } catch (err) {
       console.error("Error sending email:", err);
       return { error: "Failed to send OTP", details: err.message };
